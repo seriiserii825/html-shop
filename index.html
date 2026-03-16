@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ru" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Магазин — Главная</title>
+    <link href="/dist/output.css" rel="stylesheet" />
+    <!-- твой скомпилированный Tailwind -->
+  </head>
+  <body class="bg-gray-50 text-gray-800 antialiased">
+    <!-- Header / Навигация -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm">
+      <div class="container mx-auto px-4 lg:px-8 py-4 flex items-center justify-between">
+        <a href="/" class="text-3xl font-bold text-orange-600">Brand</a>
+
+        <nav class="hidden md:flex gap-8 font-medium">
+          <a href="/" class="hover:text-orange-600 transition">Главная</a>
+          <a href="/about" class="hover:text-orange-600 transition">О нас</a>
+          <a href="/products" class="hover:text-orange-600 transition">Товары</a>
+          <a href="/contacts" class="hover:text-orange-600 transition">Контакты</a>
+        </nav>
+
+        <div class="flex items-center gap-6">
+          <button class="text-2xl hover:text-orange-600">🛒</button>
+          <button class="md:hidden">☰</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- 1. Hero -->
+      <section class="bg-gradient-to-br from-orange-500 to-amber-500 text-white py-24 lg:py-32">
+        <div class="container mx-auto px-6 text-center">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6">
+            Лучшие товары
+            <br class="hidden sm:block" />
+            по лучшим ценам
+          </h1>
+          <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto opacity-90">
+            Доставка по всей стране • Скидки до 70% • Гарантия качества
+          </p>
+          <a
+            href="/products"
+            class="inline-block bg-white text-orange-600 font-bold text-lg px-10 py-5 rounded-xl shadow-xl hover:bg-orange-50 transition transform hover:-translate-y-1">
+            Перейти в каталог →
+          </a>
+        </div>
+      </section>
+
+      <!-- 2. Популярные категории -->
+      <section class="py-16 lg:py-24 bg-white">
+        <div class="container mx-auto px-6">
+          <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">
+            Популярные категории
+          </h2>
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+            <a
+              href="#"
+              class="group bg-orange-50 hover:bg-orange-100 rounded-2xl p-8 text-center transition shadow-sm hover:shadow-md">
+              <div class="text-5xl mb-4">📱</div>
+              <h3 class="font-semibold text-lg">Смартфоны</h3>
+            </a>
+            <!-- повторить 4–5 карточек -->
+            <a
+              href="#"
+              class="group bg-orange-50 hover:bg-orange-100 rounded-2xl p-8 text-center transition shadow-sm hover:shadow-md">
+              ...
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Хиты продаж -->
+      <section class="py-16 lg:py-24 bg-gray-50">
+        <div class="container mx-auto px-6">
+          <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">Хиты продаж</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- карточка товара -->
+            <div
+              class="bg-white rounded-2xl overflow-hidden shadow hover:shadow-xl transition group">
+              <div class="h-64 bg-orange-100 flex items-center justify-center text-6xl">🖥️</div>
+              <div class="p-6">
+                <h3 class="font-bold text-lg mb-2">Ноутбук Pro 16"</h3>
+                <p class="text-orange-600 font-bold text-xl mb-3">54 990 ₽</p>
+                <button
+                  class="w-full bg-orange-600 text-white py-3 rounded-xl hover:bg-orange-700 transition">
+                  В корзину
+                </button>
+              </div>
+            </div>
+            <!-- ещё 3 карточки -->
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Почему мы? (преимущества) -->
+      <section class="py-20 bg-gradient-to-r from-orange-600 to-amber-600 text-white">
+        <div class="container mx-auto px-6">
+          <h2 class="text-4xl font-bold text-center mb-16">Почему выбирают нас</h2>
+          <div class="grid md:grid-cols-3 gap-10 text-center">
+            <div>
+              <div class="text-6xl mb-6">🚚</div>
+              <h3 class="text-2xl font-bold mb-4">Доставка 1–3 дня</h3>
+              <p class="opacity-90">По всей Молдове и Украине</p>
+            </div>
+            <div>
+              <div class="text-6xl mb-6">🛡️</div>
+              <h3 class="text-2xl font-bold mb-4">Гарантия 24 мес.</h3>
+              <p class="opacity-90">Официальная от производителя</p>
+            </div>
+            <div>
+              <div class="text-6xl mb-6">💰</div>
+              <h3 class="text-2xl font-bold mb-4">Лучшая цена</h3>
+              <p class="opacity-90">Вернем разницу, если найдёте дешевле</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Подписка на рассылку -->
+      <section class="py-20 bg-white">
+        <div class="container mx-auto px-6 text-center max-w-3xl">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">Будь в курсе акций!</h2>
+          <p class="text-lg mb-8 text-gray-600">Подпишись и получи скидку 10% на первый заказ</p>
+
+          <form class="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+            <input
+              type="email"
+              placeholder="Ваш email"
+              class="flex-1 px-6 py-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-orange-400" />
+            <button
+              type="submit"
+              class="bg-orange-600 text-white font-bold px-10 py-4 rounded-xl hover:bg-orange-700 transition">
+              Подписаться
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+      <div class="container mx-auto px-6 grid md:grid-cols-4 gap-10">
+        <div>
+          <h4 class="text-white text-xl font-bold mb-4">Brand</h4>
+          <p>Интернет-магазин электроники</p>
+        </div>
+        <!-- ещё 3 колонки -->
+      </div>
+      <div class="text-center mt-10 text-sm opacity-70">© 2026 Brand. Все права защищены.</div>
+    </footer>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  </body>
+</html>
