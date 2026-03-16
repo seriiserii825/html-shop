@@ -5,21 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shop — About Us</title>
     <link href="/dist/output.css" rel="stylesheet" />
-    <!-- твой скомпилированный Tailwind -->
+    <style>
+      .timeline-item:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        left: 19px;
+        top: 44px;
+        bottom: -24px;
+        width: 2px;
+        background: #fed7aa;
+      }
+      .counter { font-variant-numeric: tabular-nums; }
+    </style>
   </head>
   <body class="bg-gray-50 text-gray-800 antialiased">
-    <!-- Header / Навигация -->
+
+    <!-- Header -->
     <header class="sticky top-0 z-50 bg-white shadow-sm">
       <div class="container mx-auto px-4 lg:px-8 py-4 flex items-center justify-between">
         <a href="/" class="text-3xl font-bold text-orange-600">Brand</a>
-
         <nav class="hidden md:flex gap-8 font-medium">
           <a href="/" class="hover:text-orange-600 transition">Home</a>
-          <a href="/about" class="hover:text-orange-600 transition">About</a>
+          <a href="/about" class="text-orange-600 font-semibold">About</a>
           <a href="/products" class="hover:text-orange-600 transition">Products</a>
           <a href="/contacts" class="hover:text-orange-600 transition">Contacts</a>
         </nav>
-
         <div class="flex items-center gap-6">
           <button class="text-2xl hover:text-orange-600">🛒</button>
           <button class="md:hidden">☰</button>
@@ -27,62 +37,304 @@
       </div>
     </header>
 
-    <main class="pt-8">
-      <!-- 1. Герой / заголовок -->
-      <section class="bg-orange-600 text-white py-24">
-        <div class="container mx-auto px-6 text-center">
-          <h1 class="text-5xl font-bold mb-6">About Us</h1>
-          <p class="text-xl max-w-3xl mx-auto opacity-90">
-            Since 2015 we've been helping people get the best tech at a fair price
+    <main>
+
+      <!-- 1. Hero -->
+      <section class="relative bg-gradient-to-br from-orange-600 to-amber-500 text-white py-28 overflow-hidden">
+        <div class="absolute inset-0 opacity-10" style="background-image:radial-gradient(circle at 20% 50%, white 1px, transparent 1px),radial-gradient(circle at 80% 20%, white 1px, transparent 1px); background-size:40px 40px;"></div>
+        <div class="container mx-auto px-6 text-center relative">
+          <p class="text-sm font-semibold uppercase tracking-widest mb-4 opacity-80">Founded in 2015</p>
+          <h1 class="text-5xl md:text-6xl font-extrabold mb-6 leading-tight">We bring the best<br>tech to your door</h1>
+          <p class="text-xl max-w-2xl mx-auto opacity-90 leading-relaxed">
+            From a tiny Chișinău office to one of the region's most trusted electronics retailers —
+            this is our story.
           </p>
+          <div class="mt-10 flex flex-wrap justify-center gap-4">
+            <a href="/products" class="bg-white text-orange-600 font-bold px-8 py-3 rounded-xl hover:bg-orange-50 transition">Browse catalog</a>
+            <a href="/contacts" class="border-2 border-white text-white font-bold px-8 py-3 rounded-xl hover:bg-white hover:text-orange-600 transition">Contact us</a>
+          </div>
         </div>
       </section>
 
-      <!-- 2. Наша история / миссия -->
+      <!-- 2. Key numbers -->
+      <section class="py-16 bg-white border-b border-gray-100">
+        <div class="container mx-auto px-6">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+              <p class="counter text-5xl font-extrabold text-orange-600 mb-2">11</p>
+              <p class="text-gray-500 font-medium">Years on the market</p>
+            </div>
+            <div>
+              <p class="counter text-5xl font-extrabold text-orange-600 mb-2">85k+</p>
+              <p class="text-gray-500 font-medium">Happy customers</p>
+            </div>
+            <div>
+              <p class="counter text-5xl font-extrabold text-orange-600 mb-2">2400+</p>
+              <p class="text-gray-500 font-medium">Products in catalog</p>
+            </div>
+            <div>
+              <p class="counter text-5xl font-extrabold text-orange-600 mb-2">7</p>
+              <p class="text-gray-500 font-medium">Service centers</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Our story -->
       <section class="py-20 bg-white">
         <div class="container mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
           <div>
-            <h2 class="text-4xl font-bold mb-8">Our Story</h2>
-            <p class="text-lg leading-relaxed mb-6">
-              It all started with a small office in Chisinau and a dream to make quality electronics
-              accessible to everyone...
+            <p class="text-sm font-semibold text-orange-500 uppercase tracking-widest mb-3">Our story</p>
+            <h2 class="text-4xl font-bold mb-6 leading-tight">From a small startup to a regional leader</h2>
+            <p class="text-gray-600 leading-relaxed mb-5">
+              It all started in 2015 when our founders — two tech enthusiasts — opened a tiny 20 m² shop
+              on Stefan cel Mare Boulevard. Back then we stocked 50 products and delivered orders by bicycle.
             </p>
-            <p class="text-lg leading-relaxed">
-              Today we are one of the largest stores in the region with our own delivery service and
-              service center.
+            <p class="text-gray-600 leading-relaxed mb-5">
+              By 2018 we launched our first warehouse and in-house delivery fleet, cutting delivery times
+              to 24 hours across Chișinău. We expanded into Ukraine the following year, opening fulfillment
+              hubs in Kyiv and Odessa.
+            </p>
+            <p class="text-gray-600 leading-relaxed">
+              Today Brand operates 4 retail locations, an e-commerce platform visited by over 300,000 people
+              monthly, and a dedicated service center staffed by certified engineers. We remain proudly
+              independent — no outside investors, no compromises on quality.
             </p>
           </div>
-          <div class="bg-orange-100 h-96 rounded-3xl"></div>
-          <!-- фото / иллюстрация -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-orange-100 rounded-3xl h-64 flex items-center justify-center text-7xl">🏪</div>
+            <div class="bg-blue-50 rounded-3xl h-64 flex items-center justify-center text-7xl mt-8">📦</div>
+            <div class="bg-green-50 rounded-3xl h-48 flex items-center justify-center text-7xl">🚚</div>
+            <div class="bg-amber-50 rounded-3xl h-48 flex items-center justify-center text-7xl mt-4">🔧</div>
+          </div>
         </div>
       </section>
 
-      <!-- 3. Команда / ценности -->
+      <!-- 4. Timeline -->
       <section class="py-20 bg-gray-50">
-        <div class="container mx-auto px-6">
-          <h2 class="text-4xl font-bold text-center mb-16">Our Values</h2>
-          <div class="grid md:grid-cols-3 gap-10">
-            <div class="text-center">
-              <div class="text-6xl mb-6">⭐</div>
-              <h3 class="text-2xl font-bold mb-4">Honesty</h3>
-              <p>We never inflate prices or hide product flaws</p>
+        <div class="container mx-auto px-6 max-w-3xl">
+          <p class="text-sm font-semibold text-orange-500 uppercase tracking-widest mb-3 text-center">Milestones</p>
+          <h2 class="text-4xl font-bold text-center mb-14">Our journey</h2>
+          <div class="space-y-10">
+
+            <div class="timeline-item relative flex gap-6">
+              <div class="w-10 h-10 rounded-full bg-orange-600 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">15</div>
+              <div class="bg-white rounded-2xl shadow-sm p-6 flex-1">
+                <p class="text-xs text-orange-500 font-semibold uppercase tracking-wider mb-1">2015</p>
+                <h3 class="font-bold text-lg mb-1">Grand opening</h3>
+                <p class="text-gray-500 text-sm">Opened our first 20 m² store. 50 products, 3 employees, and a whole lot of enthusiasm.</p>
+              </div>
             </div>
-            <!-- ещё 2 блока -->
+
+            <div class="timeline-item relative flex gap-6">
+              <div class="w-10 h-10 rounded-full bg-orange-600 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">17</div>
+              <div class="bg-white rounded-2xl shadow-sm p-6 flex-1">
+                <p class="text-xs text-orange-500 font-semibold uppercase tracking-wider mb-1">2017</p>
+                <h3 class="font-bold text-lg mb-1">Online store launch</h3>
+                <p class="text-gray-500 text-sm">Launched brand.md — our first e-commerce platform. First 1 000 online orders in 3 months.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item relative flex gap-6">
+              <div class="w-10 h-10 rounded-full bg-orange-600 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">19</div>
+              <div class="bg-white rounded-2xl shadow-sm p-6 flex-1">
+                <p class="text-xs text-orange-500 font-semibold uppercase tracking-wider mb-1">2019</p>
+                <h3 class="font-bold text-lg mb-1">Expansion to Ukraine</h3>
+                <p class="text-gray-500 text-sm">Opened fulfillment hubs in Kyiv and Odessa, enabling next-day delivery for Ukrainian customers.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item relative flex gap-6">
+              <div class="w-10 h-10 rounded-full bg-orange-600 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">21</div>
+              <div class="bg-white rounded-2xl shadow-sm p-6 flex-1">
+                <p class="text-xs text-orange-500 font-semibold uppercase tracking-wider mb-1">2021</p>
+                <h3 class="font-bold text-lg mb-1">Service center opens</h3>
+                <p class="text-gray-500 text-sm">Launched a certified repair and warranty service center. Over 12,000 devices repaired in the first year.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item relative flex gap-6">
+              <div class="w-10 h-10 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">24</div>
+              <div class="bg-white rounded-2xl shadow-sm p-6 flex-1 border-2 border-orange-200">
+                <p class="text-xs text-orange-500 font-semibold uppercase tracking-wider mb-1">2024 — now</p>
+                <h3 class="font-bold text-lg mb-1">New platform & 4 retail stores</h3>
+                <p class="text-gray-500 text-sm">Rebuilt the platform from the ground up, opened 3 new retail locations, reached 85 000 customers.</p>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
+
+      <!-- 5. Values -->
+      <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+          <p class="text-sm font-semibold text-orange-500 uppercase tracking-widest mb-3 text-center">What drives us</p>
+          <h2 class="text-4xl font-bold text-center mb-14">Our values</h2>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="bg-orange-50 rounded-2xl p-8 text-center hover:shadow-md transition">
+              <div class="text-5xl mb-5">⭐</div>
+              <h3 class="text-xl font-bold mb-3">Honesty</h3>
+              <p class="text-gray-500 text-sm leading-relaxed">We never inflate prices, hide flaws, or push unnecessary extras. What you see is what you get.</p>
+            </div>
+            <div class="bg-blue-50 rounded-2xl p-8 text-center hover:shadow-md transition">
+              <div class="text-5xl mb-5">🚀</div>
+              <h3 class="text-xl font-bold mb-3">Speed</h3>
+              <p class="text-gray-500 text-sm leading-relaxed">Orders placed before 15:00 ship same day. We built our own logistics network to keep that promise.</p>
+            </div>
+            <div class="bg-green-50 rounded-2xl p-8 text-center hover:shadow-md transition">
+              <div class="text-5xl mb-5">🛡️</div>
+              <h3 class="text-xl font-bold mb-3">Reliability</h3>
+              <p class="text-gray-500 text-sm leading-relaxed">24-month warranty on everything, backed by our own service center — not a third-party contractor.</p>
+            </div>
+            <div class="bg-purple-50 rounded-2xl p-8 text-center hover:shadow-md transition">
+              <div class="text-5xl mb-5">🤝</div>
+              <h3 class="text-xl font-bold mb-3">Community</h3>
+              <p class="text-gray-500 text-sm leading-relaxed">We sponsor local tech events, run free repair workshops, and reinvest profits back into the region.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Team -->
+      <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+          <p class="text-sm font-semibold text-orange-500 uppercase tracking-widest mb-3 text-center">The people behind Brand</p>
+          <h2 class="text-4xl font-bold text-center mb-14">Meet the team</h2>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+
+            <div class="bg-white rounded-2xl shadow-sm p-6 text-center hover:shadow-md transition">
+              <div class="w-20 h-20 rounded-full bg-orange-100 flex items-center justify-center text-4xl mx-auto mb-4">👨‍💼</div>
+              <h3 class="font-bold text-lg">Andrei Moșanu</h3>
+              <p class="text-orange-500 text-sm font-medium mb-2">CEO & Co-founder</p>
+              <p class="text-gray-400 text-xs">11 years building Brand from the ground up. Passionate about product and logistics.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm p-6 text-center hover:shadow-md transition">
+              <div class="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center text-4xl mx-auto mb-4">👩‍💼</div>
+              <h3 class="font-bold text-lg">Elena Rusu</h3>
+              <p class="text-orange-500 text-sm font-medium mb-2">COO & Co-founder</p>
+              <p class="text-gray-400 text-xs">Oversees operations and supply chain. Previously VP Logistics at a top-3 regional retailer.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm p-6 text-center hover:shadow-md transition">
+              <div class="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center text-4xl mx-auto mb-4">👨‍🔧</div>
+              <h3 class="font-bold text-lg">Dmitri Ivanenco</h3>
+              <p class="text-orange-500 text-sm font-medium mb-2">Head of Service</p>
+              <p class="text-gray-400 text-xs">Certified Apple & Samsung engineer. Leads a team of 24 technicians across 7 service points.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm p-6 text-center hover:shadow-md transition">
+              <div class="w-20 h-20 rounded-full bg-purple-100 flex items-center justify-center text-4xl mx-auto mb-4">👩‍💻</div>
+              <h3 class="font-bold text-lg">Marta Popescu</h3>
+              <p class="text-orange-500 text-sm font-medium mb-2">Head of E-commerce</p>
+              <p class="text-gray-400 text-xs">Built our platform from scratch. Obsessed with UX, page speed, and conversion funnels.</p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. Certificates & Partners -->
+      <section class="py-16 bg-white border-t border-gray-100">
+        <div class="container mx-auto px-6">
+          <p class="text-sm font-semibold text-orange-500 uppercase tracking-widest mb-3 text-center">Trusted by</p>
+          <h2 class="text-3xl font-bold text-center mb-10">Official partners & certifications</h2>
+          <div class="flex flex-wrap justify-center items-center gap-10">
+            <div class="text-center">
+              <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-2">🍎</div>
+              <p class="text-xs text-gray-400">Apple Authorised</p>
+            </div>
+            <div class="text-center">
+              <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-2">📱</div>
+              <p class="text-xs text-gray-400">Samsung Premium</p>
+            </div>
+            <div class="text-center">
+              <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-2">🎵</div>
+              <p class="text-xs text-gray-400">Sony Certified</p>
+            </div>
+            <div class="text-center">
+              <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-2">🖥️</div>
+              <p class="text-xs text-gray-400">Lenovo Partner</p>
+            </div>
+            <div class="text-center">
+              <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-2">🏅</div>
+              <p class="text-xs text-gray-400">ISO 9001:2015</p>
+            </div>
+            <div class="text-center">
+              <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-2">🛡️</div>
+              <p class="text-xs text-gray-400">PCI DSS Level 2</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. CTA -->
+      <section class="py-20 bg-gradient-to-r from-orange-600 to-amber-500 text-white">
+        <div class="container mx-auto px-6 text-center max-w-2xl">
+          <h2 class="text-4xl font-bold mb-4">Ready to shop?</h2>
+          <p class="text-lg opacity-90 mb-8">2400+ products. Fast delivery. 24-month warranty. No compromises.</p>
+          <a href="/products" class="inline-block bg-white text-orange-600 font-bold text-lg px-10 py-4 rounded-2xl hover:bg-orange-50 transition">
+            Go to catalog →
+          </a>
+        </div>
+      </section>
+
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-300 py-12">
-      <div class="container mx-auto px-6 grid md:grid-cols-4 gap-10">
-        <div>
-          <h4 class="text-white text-xl font-bold mb-4">Brand</h4>
-          <p>Online electronics store</p>
+    <footer class="bg-gray-900 text-gray-300">
+      <div class="border-b border-gray-700">
+        <div class="container mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div>
+            <a href="/" class="text-3xl font-bold text-orange-500 mb-4 inline-block">Brand</a>
+            <p class="text-sm leading-relaxed mb-5">Official online electronics store. Fast delivery across Moldova and Ukraine.</p>
+            <div class="flex gap-4">
+              <a href="#" class="w-9 h-9 rounded-full bg-gray-700 hover:bg-orange-600 flex items-center justify-center transition text-sm font-bold">f</a>
+              <a href="#" class="w-9 h-9 rounded-full bg-gray-700 hover:bg-orange-600 flex items-center justify-center transition text-sm font-bold">in</a>
+              <a href="#" class="w-9 h-9 rounded-full bg-gray-700 hover:bg-orange-600 flex items-center justify-center transition text-sm font-bold">tg</a>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold uppercase tracking-wider text-sm mb-5">Navigation</h4>
+            <ul class="space-y-3 text-sm">
+              <li><a href="/" class="hover:text-orange-400 transition">Home</a></li>
+              <li><a href="/about" class="hover:text-orange-400 transition">About us</a></li>
+              <li><a href="/products" class="hover:text-orange-400 transition">Catalog</a></li>
+              <li><a href="/contacts" class="hover:text-orange-400 transition">Contacts</a></li>
+              <li><a href="#" class="hover:text-orange-400 transition">Delivery &amp; payment</a></li>
+              <li><a href="#" class="hover:text-orange-400 transition">Warranty &amp; returns</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold uppercase tracking-wider text-sm mb-5">Write to us</h4>
+            <form class="space-y-3">
+              <input type="text" placeholder="Your name" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-orange-500 transition" />
+              <input type="email" placeholder="Email" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-orange-500 transition" />
+              <textarea rows="3" placeholder="Your message" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-orange-500 transition resize-none"></textarea>
+              <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2.5 rounded-lg transition text-sm">Send message</button>
+            </form>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold uppercase tracking-wider text-sm mb-5">Find us</h4>
+            <div class="rounded-xl overflow-hidden mb-4" style="height:180px;">
+              <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=28.82,47.00,28.86,47.02&layer=mapnik&marker=47.01,28.84" width="100%" height="100%" style="border:0;" loading="lazy" title="Store location"></iframe>
+            </div>
+            <ul class="space-y-2 text-sm">
+              <li class="flex gap-2"><span class="text-orange-500">📍</span> 14 Stefan cel Mare Blvd, Chișinău</li>
+              <li class="flex gap-2"><span class="text-orange-500">📞</span> <a href="tel:+37322000000" class="hover:text-orange-400 transition">+373 22 000 000</a></li>
+              <li class="flex gap-2"><span class="text-orange-500">🕐</span> Mon–Sat: 9:00–20:00</li>
+            </ul>
+          </div>
         </div>
-        <!-- ещё 3 колонки -->
       </div>
-      <div class="text-center mt-10 text-sm opacity-70">© 2026 Brand. All rights reserved.</div>
+      <div class="container mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm opacity-60">
+        <span>© 2026 Brand. All rights reserved.</span>
+        <div class="flex gap-6">
+          <a href="#" class="hover:text-white transition">Privacy Policy</a>
+          <a href="#" class="hover:text-white transition">Terms of Use</a>
+        </div>
+      </div>
     </footer>
 
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>

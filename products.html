@@ -5,112 +5,651 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shop — Products</title>
     <link href="/dist/output.css" rel="stylesheet" />
-    <!-- твой скомпилированный Tailwind -->
+    <style>
+      .product-card { display: flex; flex-direction: column; }
+      .product-card.hidden-card { display: none; }
+      .range-thumb { accent-color: #ea580c; }
+    </style>
   </head>
   <body class="bg-gray-50 text-gray-800 antialiased">
-    <!-- Header / Навигация -->
+
+    <!-- Header -->
     <header class="sticky top-0 z-50 bg-white shadow-sm">
       <div class="container mx-auto px-4 lg:px-8 py-4 flex items-center justify-between">
         <a href="/" class="text-3xl font-bold text-orange-600">Brand</a>
-
         <nav class="hidden md:flex gap-8 font-medium">
           <a href="/" class="hover:text-orange-600 transition">Home</a>
           <a href="/about" class="hover:text-orange-600 transition">About</a>
-          <a href="/products" class="hover:text-orange-600 transition">Products</a>
+          <a href="/products" class="text-orange-600 font-semibold">Products</a>
           <a href="/contacts" class="hover:text-orange-600 transition">Contacts</a>
         </nav>
-
         <div class="flex items-center gap-6">
           <button class="text-2xl hover:text-orange-600">🛒</button>
           <button class="md:hidden">☰</button>
         </div>
       </div>
     </header>
+
     <main class="pt-8 pb-20">
       <div class="container mx-auto px-4 lg:px-8">
-        <h1 class="text-4xl font-bold mb-10">Product Catalog</h1>
+
+        <!-- Breadcrumb -->
+        <nav class="text-sm text-gray-400 mb-4">
+          <a href="/" class="hover:text-orange-500">Home</a>
+          <span class="mx-2">/</span>
+          <span class="text-gray-700">Catalog</span>
+        </nav>
+
+        <h1 class="text-4xl font-bold mb-8">Product Catalog</h1>
 
         <div class="flex flex-col lg:flex-row gap-10">
-          <!-- Сайдбар -->
-          <aside class="lg:w-64 flex-shrink-0">
-            <div class="bg-white rounded-xl shadow p-6 sticky top-24">
-              <h3 class="text-xl font-bold mb-6">Categories</h3>
-              <ul class="space-y-3">
-                <li>
-                  <a
-                    href="#"
-                    class="block py-2 px-4 bg-orange-50 text-orange-700 rounded-lg font-medium">
-                    Smartphones
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="block py-2 px-4 hover:bg-orange-50 rounded-lg transition">
-                    Laptops
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="block py-2 px-4 hover:bg-orange-50 rounded-lg transition">
-                    Headphones
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="block py-2 px-4 hover:bg-orange-50 rounded-lg transition">
-                    TVs
-                  </a>
-                </li>
-                <!-- ... -->
-              </ul>
 
-              <hr class="my-8" />
+          <!-- ===== Sidebar ===== -->
+          <aside class="lg:w-72 flex-shrink-0">
+            <div class="bg-white rounded-2xl shadow p-6 sticky top-24 space-y-7">
 
-              <h4 class="font-bold mb-4">Price</h4>
-              <div class="space-y-3">
-                <label class="flex items-center">
-                  <input type="checkbox" />
-                  <span class="ml-3">Up to $100</span>
-                </label>
-                <!-- ... -->
+              <!-- Search -->
+              <div>
+                <input id="search-input" type="text" placeholder="Search products…"
+                  class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400" />
               </div>
+
+              <!-- Categories -->
+              <div>
+                <h3 class="font-bold text-base mb-3">Category</h3>
+                <ul class="space-y-1 text-sm">
+                  <li><button data-cat="all"   class="cat-btn w-full text-left py-2 px-3 bg-orange-50 text-orange-700 rounded-lg font-medium">All products</button></li>
+                  <li><button data-cat="smartphone" class="cat-btn w-full text-left py-2 px-3 hover:bg-orange-50 rounded-lg transition">📱 Smartphones</button></li>
+                  <li><button data-cat="laptop"     class="cat-btn w-full text-left py-2 px-3 hover:bg-orange-50 rounded-lg transition">💻 Laptops</button></li>
+                  <li><button data-cat="headphone"  class="cat-btn w-full text-left py-2 px-3 hover:bg-orange-50 rounded-lg transition">🎧 Headphones</button></li>
+                  <li><button data-cat="tv"         class="cat-btn w-full text-left py-2 px-3 hover:bg-orange-50 rounded-lg transition">📺 TVs</button></li>
+                  <li><button data-cat="watch"      class="cat-btn w-full text-left py-2 px-3 hover:bg-orange-50 rounded-lg transition">⌚ Smartwatches</button></li>
+                  <li><button data-cat="tablet"     class="cat-btn w-full text-left py-2 px-3 hover:bg-orange-50 rounded-lg transition">📟 Tablets</button></li>
+                </ul>
+              </div>
+
+              <hr />
+
+              <!-- Price range -->
+              <div>
+                <h4 class="font-bold text-base mb-3">Price</h4>
+                <input id="price-range" type="range" min="0" max="2000" value="2000" class="w-full range-thumb" />
+                <div class="flex justify-between text-sm text-gray-500 mt-1">
+                  <span>$0</span>
+                  <span>up to <strong id="price-label">$2000</strong></span>
+                </div>
+              </div>
+
+              <hr />
+
+              <!-- Brand checkboxes -->
+              <div>
+                <h4 class="font-bold text-base mb-3">Brand</h4>
+                <div class="space-y-2 text-sm">
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="brand-cb accent-orange-600" value="Apple" checked /> Apple</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="brand-cb accent-orange-600" value="Samsung" checked /> Samsung</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="brand-cb accent-orange-600" value="Sony" checked /> Sony</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="brand-cb accent-orange-600" value="Xiaomi" checked /> Xiaomi</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="brand-cb accent-orange-600" value="Lenovo" checked /> Lenovo</label>
+                  <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="brand-cb accent-orange-600" value="LG" checked /> LG</label>
+                </div>
+              </div>
+
+              <hr />
+
+              <!-- In stock -->
+              <div>
+                <label class="flex items-center gap-2 text-sm cursor-pointer">
+                  <input id="in-stock" type="checkbox" class="accent-orange-600" />
+                  In stock only
+                </label>
+              </div>
+
+              <button id="reset-filters" class="w-full text-sm text-gray-400 hover:text-orange-600 transition pt-1">Reset filters</button>
             </div>
           </aside>
 
-          <!-- Основной контент -->
-          <div class="flex-1">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-16">
-              <!-- 12–16 карточек товаров (аналогично главной) -->
-              <div class="bg-white rounded-2xl shadow hover:shadow-xl transition">...</div>
+          <!-- ===== Main content ===== -->
+          <div class="flex-1 min-w-0">
+
+            <!-- Toolbar -->
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+              <p class="text-sm text-gray-500"><span id="count-label">24</span> products found</p>
+              <div class="flex items-center gap-3">
+                <label class="text-sm text-gray-500">Sort:</label>
+                <select id="sort-select" class="border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-white">
+                  <option value="default">Featured</option>
+                  <option value="price-asc">Price: low to high</option>
+                  <option value="price-desc">Price: high to low</option>
+                  <option value="name-asc">Name A–Z</option>
+                  <option value="rating">Top rated</option>
+                </select>
+                <!-- Grid/List toggle -->
+                <button id="grid-btn" class="p-2 rounded-lg bg-orange-600 text-white" title="Grid view">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+                </button>
+                <button id="list-btn" class="p-2 rounded-lg bg-white border border-gray-200 text-gray-500 hover:bg-orange-50 transition" title="List view">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+              </div>
             </div>
 
-            <!-- Пагинация -->
-            <div class="flex justify-center items-center gap-3 flex-wrap">
-              <button class="px-5 py-3 rounded-lg bg-orange-600 text-white hover:bg-orange-700">
-                1
-              </button>
-              <button class="px-5 py-3 rounded-lg hover:bg-orange-50">2</button>
-              <button class="px-5 py-3 rounded-lg hover:bg-orange-50">3</button>
-              <span class="px-4">...</span>
-              <button class="px-5 py-3 rounded-lg hover:bg-orange-50">18</button>
-              <button class="px-6 py-3 rounded-lg bg-orange-600 text-white hover:bg-orange-700">
-                →
-              </button>
+            <!-- Product grid -->
+            <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mb-12">
+
+              <!-- ── Smartphones ── -->
+              <div class="product-card bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden" data-cat="smartphone" data-brand="Apple" data-price="999" data-rating="5" data-stock="1" data-name="iPhone 15">
+                <div class="h-52 bg-blue-50 flex items-center justify-center text-6xl relative">📱
+                  <span class="absolute top-3 right-3 bg-orange-100 text-orange-700 text-xs font-semibold px-2 py-0.5 rounded-full">In stock</span>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                  <p class="text-xs text-gray-400 mb-1">Apple</p>
+                  <h3 class="font-bold mb-1">iPhone 15</h3>
+                  <p class="text-sm text-gray-500 mb-3">128 GB · Black</p>
+                  <div class="flex items-center gap-1 text-orange-400 text-sm mb-4">★★★★★ <span class="text-gray-400">(128)</span></div>
+                  <div class="mt-auto flex items-center justify-between">
+                    <span class="text-xl font-bold text-orange-600">$999</span>
+                    <button class="bg-orange-600 hover:bg-orange-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden" data-cat="smartphone" data-brand="Samsung" data-price="849" data-rating="5" data-stock="1" data-name="Samsung Galaxy S24">
+                <div class="h-52 bg-purple-50 flex items-center justify-center text-6xl relative">📱
+                  <span class="absolute top-3 right-3 bg-orange-100 text-orange-700 text-xs font-semibold px-2 py-0.5 rounded-full">In stock</span>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                  <p class="text-xs text-gray-400 mb-1">Samsung</p>
+                  <h3 class="font-bold mb-1">Samsung Galaxy S24</h3>
+                  <p class="text-sm text-gray-500 mb-3">256 GB · Violet</p>
+                  <div class="flex items-center gap-1 text-orange-400 text-sm mb-4">★★★★★ <span class="text-gray-400">(95)</span></div>
+                  <div class="mt-auto flex items-center justify-between">
+                    <span class="text-xl font-bold text-orange-600">$849</span>
+                    <button class="bg-orange-600 hover:bg-orange-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden" data-cat="smartphone" data-brand="Xiaomi" data-price="399" data-rating="4" data-stock="1" data-name="Xiaomi 14">
+                <div class="h-52 bg-orange-50 flex items-center justify-center text-6xl relative">📱
+                  <span class="absolute top-3 right-3 bg-orange-100 text-orange-700 text-xs font-semibold px-2 py-0.5 rounded-full">In stock</span>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                  <p class="text-xs text-gray-400 mb-1">Xiaomi</p>
+                  <h3 class="font-bold mb-1">Xiaomi 14</h3>
+                  <p class="text-sm text-gray-500 mb-3">256 GB · White</p>
+                  <div class="flex items-center gap-1 text-orange-400 text-sm mb-4">★★★★☆ <span class="text-gray-400">(74)</span></div>
+                  <div class="mt-auto flex items-center justify-between">
+                    <span class="text-xl font-bold text-orange-600">$399</span>
+                    <button class="bg-orange-600 hover:bg-orange-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden" data-cat="smartphone" data-brand="Samsung" data-price="299" data-rating="4" data-stock="0" data-name="Samsung Galaxy A55">
+                <div class="h-52 bg-gray-100 flex items-center justify-center text-6xl relative">📱
+                  <span class="absolute top-3 right-3 bg-gray-200 text-gray-500 text-xs font-semibold px-2 py-0.5 rounded-full">Out of stock</span>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                  <p class="text-xs text-gray-400 mb-1">Samsung</p>
+                  <h3 class="font-bold mb-1">Samsung Galaxy A55</h3>
+                  <p class="text-sm text-gray-500 mb-3">128 GB · Blue</p>
+                  <div class="flex items-center gap-1 text-orange-400 text-sm mb-4">★★★★☆ <span class="text-gray-400">(43)</span></div>
+                  <div class="mt-auto flex items-center justify-between">
+                    <span class="text-xl font-bold text-gray-400">$299</span>
+                    <button disabled class="bg-gray-200 text-gray-400 text-sm font-semibold px-4 py-2 rounded-xl cursor-not-allowed">Notify me</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ── Laptops ── -->
+              <div class="product-card bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden" data-cat="laptop" data-brand="Apple" data-price="1399" data-rating="5" data-stock="1" data-name="MacBook Air M3">
+                <div class="h-52 bg-yellow-50 flex items-center justify-center text-6xl relative">💻
+                  <span class="absolute top-3 left-3 bg-blue-100 text-blue-700 text-xs font-bold px-2 py-0.5 rounded-full">NEW</span>
+                  <span class="absolute top-3 right-3 bg-orange-100 text-orange-700 text-xs font-semibold px-2 py-0.5 rounded-full">In stock</span>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                  <p class="text-xs text-gray-400 mb-1">Apple</p>
+                  <h3 class="font-bold mb-1">MacBook Air M3</h3>
+                  <p class="text-sm text-gray-500 mb-3">15" · 16 GB / 512 GB</p>
+                  <div class="flex items-center gap-1 text-orange-400 text-sm mb-4">★★★★★ <span class="text-gray-400">(61)</span></div>
+                  <div class="mt-auto flex items-center justify-between">
+                    <span class="text-xl font-bold text-orange-600">$1399</span>
+                    <button class="bg-orange-600 hover:bg-orange-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden" data-cat="laptop" data-brand="Lenovo" data-price="899" data-rating="4" data-stock="1" data-name="Lenovo ThinkPad X1 Carbon">
+                <div class="h-52 bg-gray-100 flex items-center justify-center text-6xl relative">💻
+                  <span class="absolute top-3 right-3 bg-orange-100 text-orange-700 text-xs font-semibold px-2 py-0.5 rounded-full">In stock</span>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                  <p class="text-xs text-gray-400 mb-1">Lenovo</p>
+                  <h3 class="font-bold mb-1">ThinkPad X1 Carbon</h3>
+                  <p class="text-sm text-gray-500 mb-3">14" · 16 GB / 1 TB</p>
+                  <div class="flex items-center gap-1 text-orange-400 text-sm mb-4">★★★★☆ <span class="text-gray-400">(38)</span></div>
+                  <div class="mt-auto flex items-center justify-between">
+                    <span class="text-xl font-bold text-orange-600">$899</span>
+                    <button class="bg-orange-600 hover:bg-orange-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden" data-cat="laptop" data-brand="Samsung" data-price="1199" data-rating="5" data-stock="1" data-name="Samsung Galaxy Book4 Pro">
+                <div class="h-52 bg-blue-50 flex items-center justify-center text-6xl relative">💻
+                  <span class="absolute top-3 right-3 bg-orange-100 text-orange-700 text-xs font-semibold px-2 py-0.5 rounded-full">In stock</span>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                  <p class="text-xs text-gray-400 mb-1">Samsung</p>
+                  <h3 class="font-bold mb-1">Galaxy Book4 Pro</h3>
+                  <p class="text-sm text-gray-500 mb-3">16" · 32 GB / 1 TB</p>
+                  <div class="flex items-center gap-1 text-orange-400 text-sm mb-4">★★★★★ <span class="text-gray-400">(22)</span></div>
+                  <div class="mt-auto flex items-center justify-between">
+                    <span class="text-xl font-bold text-orange-600">$1199</span>
+                    <button class="bg-orange-600 hover:bg-orange-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ── Headphones ── -->
+              <div class="product-card bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden" data-cat="headphone" data-brand="Sony" data-price="349" data-rating="5" data-stock="1" data-name="Sony WH-1000XM6">
+                <div class="h-52 bg-purple-50 flex items-center justify-center text-6xl relative">🎧
+                  <span class="absolute top-3 left-3 bg-blue-100 text-blue-700 text-xs font-bold px-2 py-0.5 rounded-full">NEW</span>
+                  <span class="absolute top-3 right-3 bg-orange-100 text-orange-700 text-xs font-semibold px-2 py-0.5 rounded-full">In stock</span>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                  <p class="text-xs text-gray-400 mb-1">Sony</p>
+                  <h3 class="font-bold mb-1">WH-1000XM6</h3>
+                  <p class="text-sm text-gray-500 mb-3">Noise cancelling · Midnight Blue</p>
+                  <div class="flex items-center gap-1 text-orange-400 text-sm mb-4">★★★★★ <span class="text-gray-400">(204)</span></div>
+                  <div class="mt-auto flex items-center justify-between">
+                    <span class="text-xl font-bold text-orange-600">$349</span>
+                    <button class="bg-orange-600 hover:bg-orange-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden" data-cat="headphone" data-brand="Apple" data-price="549" data-rating="5" data-stock="1" data-name="AirPods Max">
+                <div class="h-52 bg-gray-100 flex items-center justify-center text-6xl relative">🎧
+                  <span class="absolute top-3 right-3 bg-orange-100 text-orange-700 text-xs font-semibold px-2 py-0.5 rounded-full">In stock</span>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                  <p class="text-xs text-gray-400 mb-1">Apple</p>
+                  <h3 class="font-bold mb-1">AirPods Max</h3>
+                  <p class="text-sm text-gray-500 mb-3">Space Gray · USB-C</p>
+                  <div class="flex items-center gap-1 text-orange-400 text-sm mb-4">★★★★★ <span class="text-gray-400">(87)</span></div>
+                  <div class="mt-auto flex items-center justify-between">
+                    <span class="text-xl font-bold text-orange-600">$549</span>
+                    <button class="bg-orange-600 hover:bg-orange-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden" data-cat="headphone" data-brand="Sony" data-price="149" data-rating="4" data-stock="1" data-name="Sony WF-C700N">
+                <div class="h-52 bg-green-50 flex items-center justify-center text-6xl relative">🎧
+                  <span class="absolute top-3 left-3 bg-red-100 text-red-700 text-xs font-bold px-2 py-0.5 rounded-full">−20%</span>
+                  <span class="absolute top-3 right-3 bg-orange-100 text-orange-700 text-xs font-semibold px-2 py-0.5 rounded-full">In stock</span>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                  <p class="text-xs text-gray-400 mb-1">Sony</p>
+                  <h3 class="font-bold mb-1">WF-C700N</h3>
+                  <p class="text-sm text-gray-500 mb-3">TWS · Sage Green</p>
+                  <div class="flex items-center gap-1 text-orange-400 text-sm mb-4">★★★★☆ <span class="text-gray-400">(55)</span></div>
+                  <div class="mt-auto flex items-center justify-between">
+                    <div>
+                      <span class="text-xl font-bold text-orange-600">$149</span>
+                      <span class="text-sm text-gray-400 line-through ml-1">$189</span>
+                    </div>
+                    <button class="bg-orange-600 hover:bg-orange-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ── TVs ── -->
+              <div class="product-card bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden" data-cat="tv" data-brand="LG" data-price="799" data-rating="5" data-stock="1" data-name="LG OLED C4 55">
+                <div class="h-52 bg-indigo-50 flex items-center justify-center text-6xl relative">📺
+                  <span class="absolute top-3 right-3 bg-orange-100 text-orange-700 text-xs font-semibold px-2 py-0.5 rounded-full">In stock</span>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                  <p class="text-xs text-gray-400 mb-1">LG</p>
+                  <h3 class="font-bold mb-1">OLED C4 55"</h3>
+                  <p class="text-sm text-gray-500 mb-3">4K · 120 Hz · webOS</p>
+                  <div class="flex items-center gap-1 text-orange-400 text-sm mb-4">★★★★★ <span class="text-gray-400">(143)</span></div>
+                  <div class="mt-auto flex items-center justify-between">
+                    <span class="text-xl font-bold text-orange-600">$799</span>
+                    <button class="bg-orange-600 hover:bg-orange-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden" data-cat="tv" data-brand="Samsung" data-price="1099" data-rating="5" data-stock="1" data-name="Samsung Neo QLED 65">
+                <div class="h-52 bg-blue-50 flex items-center justify-center text-6xl relative">📺
+                  <span class="absolute top-3 right-3 bg-orange-100 text-orange-700 text-xs font-semibold px-2 py-0.5 rounded-full">In stock</span>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                  <p class="text-xs text-gray-400 mb-1">Samsung</p>
+                  <h3 class="font-bold mb-1">Neo QLED 65"</h3>
+                  <p class="text-sm text-gray-500 mb-3">8K · 144 Hz · Tizen</p>
+                  <div class="flex items-center gap-1 text-orange-400 text-sm mb-4">★★★★★ <span class="text-gray-400">(67)</span></div>
+                  <div class="mt-auto flex items-center justify-between">
+                    <span class="text-xl font-bold text-orange-600">$1099</span>
+                    <button class="bg-orange-600 hover:bg-orange-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden" data-cat="tv" data-brand="LG" data-price="449" data-rating="4" data-stock="0" data-name="LG NanoCell 43">
+                <div class="h-52 bg-gray-100 flex items-center justify-center text-6xl relative">📺
+                  <span class="absolute top-3 right-3 bg-gray-200 text-gray-500 text-xs font-semibold px-2 py-0.5 rounded-full">Out of stock</span>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                  <p class="text-xs text-gray-400 mb-1">LG</p>
+                  <h3 class="font-bold mb-1">NanoCell 43"</h3>
+                  <p class="text-sm text-gray-500 mb-3">4K · 60 Hz · webOS</p>
+                  <div class="flex items-center gap-1 text-orange-400 text-sm mb-4">★★★★☆ <span class="text-gray-400">(31)</span></div>
+                  <div class="mt-auto flex items-center justify-between">
+                    <span class="text-xl font-bold text-gray-400">$449</span>
+                    <button disabled class="bg-gray-200 text-gray-400 text-sm font-semibold px-4 py-2 rounded-xl cursor-not-allowed">Notify me</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ── Watches ── -->
+              <div class="product-card bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden" data-cat="watch" data-brand="Apple" data-price="399" data-rating="5" data-stock="1" data-name="Apple Watch Series 10">
+                <div class="h-52 bg-gray-100 flex items-center justify-center text-6xl relative">⌚
+                  <span class="absolute top-3 right-3 bg-orange-100 text-orange-700 text-xs font-semibold px-2 py-0.5 rounded-full">In stock</span>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                  <p class="text-xs text-gray-400 mb-1">Apple</p>
+                  <h3 class="font-bold mb-1">Apple Watch Series 10</h3>
+                  <p class="text-sm text-gray-500 mb-3">45mm · Midnight</p>
+                  <div class="flex items-center gap-1 text-orange-400 text-sm mb-4">★★★★★ <span class="text-gray-400">(178)</span></div>
+                  <div class="mt-auto flex items-center justify-between">
+                    <span class="text-xl font-bold text-orange-600">$399</span>
+                    <button class="bg-orange-600 hover:bg-orange-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden" data-cat="watch" data-brand="Samsung" data-price="279" data-rating="4" data-stock="1" data-name="Samsung Galaxy Watch 7">
+                <div class="h-52 bg-green-50 flex items-center justify-center text-6xl relative">⌚
+                  <span class="absolute top-3 left-3 bg-blue-100 text-blue-700 text-xs font-bold px-2 py-0.5 rounded-full">NEW</span>
+                  <span class="absolute top-3 right-3 bg-orange-100 text-orange-700 text-xs font-semibold px-2 py-0.5 rounded-full">In stock</span>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                  <p class="text-xs text-gray-400 mb-1">Samsung</p>
+                  <h3 class="font-bold mb-1">Galaxy Watch 7</h3>
+                  <p class="text-sm text-gray-500 mb-3">44mm · Silver</p>
+                  <div class="flex items-center gap-1 text-orange-400 text-sm mb-4">★★★★☆ <span class="text-gray-400">(52)</span></div>
+                  <div class="mt-auto flex items-center justify-between">
+                    <span class="text-xl font-bold text-orange-600">$279</span>
+                    <button class="bg-orange-600 hover:bg-orange-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ── Tablets ── -->
+              <div class="product-card bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden" data-cat="tablet" data-brand="Apple" data-price="699" data-rating="5" data-stock="1" data-name="iPad Air M2">
+                <div class="h-52 bg-blue-50 flex items-center justify-center text-6xl relative">📟
+                  <span class="absolute top-3 right-3 bg-orange-100 text-orange-700 text-xs font-semibold px-2 py-0.5 rounded-full">In stock</span>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                  <p class="text-xs text-gray-400 mb-1">Apple</p>
+                  <h3 class="font-bold mb-1">iPad Air M2</h3>
+                  <p class="text-sm text-gray-500 mb-3">11" · 256 GB · Wi-Fi</p>
+                  <div class="flex items-center gap-1 text-orange-400 text-sm mb-4">★★★★★ <span class="text-gray-400">(99)</span></div>
+                  <div class="mt-auto flex items-center justify-between">
+                    <span class="text-xl font-bold text-orange-600">$699</span>
+                    <button class="bg-orange-600 hover:bg-orange-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden" data-cat="tablet" data-brand="Samsung" data-price="549" data-rating="4" data-stock="1" data-name="Samsung Galaxy Tab S9">
+                <div class="h-52 bg-purple-50 flex items-center justify-center text-6xl relative">📟
+                  <span class="absolute top-3 right-3 bg-orange-100 text-orange-700 text-xs font-semibold px-2 py-0.5 rounded-full">In stock</span>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                  <p class="text-xs text-gray-400 mb-1">Samsung</p>
+                  <h3 class="font-bold mb-1">Galaxy Tab S9</h3>
+                  <p class="text-sm text-gray-500 mb-3">11" · 128 GB · Wi-Fi</p>
+                  <div class="flex items-center gap-1 text-orange-400 text-sm mb-4">★★★★☆ <span class="text-gray-400">(47)</span></div>
+                  <div class="mt-auto flex items-center justify-between">
+                    <span class="text-xl font-bold text-orange-600">$549</span>
+                    <button class="bg-orange-600 hover:bg-orange-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card bg-white rounded-2xl shadow hover:shadow-xl transition overflow-hidden" data-cat="tablet" data-brand="Lenovo" data-price="329" data-rating="4" data-stock="1" data-name="Lenovo Tab P12">
+                <div class="h-52 bg-yellow-50 flex items-center justify-center text-6xl relative">📟
+                  <span class="absolute top-3 left-3 bg-red-100 text-red-700 text-xs font-bold px-2 py-0.5 rounded-full">−15%</span>
+                  <span class="absolute top-3 right-3 bg-orange-100 text-orange-700 text-xs font-semibold px-2 py-0.5 rounded-full">In stock</span>
+                </div>
+                <div class="p-5 flex flex-col flex-1">
+                  <p class="text-xs text-gray-400 mb-1">Lenovo</p>
+                  <h3 class="font-bold mb-1">Tab P12</h3>
+                  <p class="text-sm text-gray-500 mb-3">12.7" · 256 GB · Wi-Fi</p>
+                  <div class="flex items-center gap-1 text-orange-400 text-sm mb-4">★★★★☆ <span class="text-gray-400">(29)</span></div>
+                  <div class="mt-auto flex items-center justify-between">
+                    <div>
+                      <span class="text-xl font-bold text-orange-600">$329</span>
+                      <span class="text-sm text-gray-400 line-through ml-1">$389</span>
+                    </div>
+                    <button class="bg-orange-600 hover:bg-orange-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">Add to cart</button>
+                  </div>
+                </div>
+              </div>
+
             </div>
+
+            <!-- No results -->
+            <div id="no-results" class="hidden py-20 text-center text-gray-400">
+              <div class="text-6xl mb-4">🔍</div>
+              <p class="text-xl font-semibold">No products found</p>
+              <p class="text-sm mt-2">Try adjusting your filters</p>
+            </div>
+
+            <!-- Pagination -->
+            <div class="flex justify-center items-center gap-2 flex-wrap">
+              <button class="px-4 py-2.5 rounded-xl border border-gray-200 hover:bg-orange-50 transition text-sm">← Prev</button>
+              <button class="px-4 py-2.5 rounded-xl bg-orange-600 text-white text-sm font-bold">1</button>
+              <button class="px-4 py-2.5 rounded-xl hover:bg-orange-50 transition text-sm">2</button>
+              <button class="px-4 py-2.5 rounded-xl hover:bg-orange-50 transition text-sm">3</button>
+              <span class="px-2 text-gray-400">…</span>
+              <button class="px-4 py-2.5 rounded-xl hover:bg-orange-50 transition text-sm">12</button>
+              <button class="px-4 py-2.5 rounded-xl border border-gray-200 hover:bg-orange-50 transition text-sm">Next →</button>
+            </div>
+
           </div>
         </div>
       </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-300 py-12">
-      <div class="container mx-auto px-6 grid md:grid-cols-4 gap-10">
-        <div>
-          <h4 class="text-white text-xl font-bold mb-4">Brand</h4>
-          <p>Online electronics store</p>
+    <footer class="bg-gray-900 text-gray-300">
+      <div class="border-b border-gray-700">
+        <div class="container mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div>
+            <a href="/" class="text-3xl font-bold text-orange-500 mb-4 inline-block">Brand</a>
+            <p class="text-sm leading-relaxed mb-5">Official online electronics store. Fast delivery across Moldova and Ukraine.</p>
+            <div class="flex gap-4">
+              <a href="#" class="w-9 h-9 rounded-full bg-gray-700 hover:bg-orange-600 flex items-center justify-center transition text-sm font-bold">f</a>
+              <a href="#" class="w-9 h-9 rounded-full bg-gray-700 hover:bg-orange-600 flex items-center justify-center transition text-sm font-bold">in</a>
+              <a href="#" class="w-9 h-9 rounded-full bg-gray-700 hover:bg-orange-600 flex items-center justify-center transition text-sm font-bold">tg</a>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold uppercase tracking-wider text-sm mb-5">Navigation</h4>
+            <ul class="space-y-3 text-sm">
+              <li><a href="/" class="hover:text-orange-400 transition">Home</a></li>
+              <li><a href="/about" class="hover:text-orange-400 transition">About us</a></li>
+              <li><a href="/products" class="hover:text-orange-400 transition">Catalog</a></li>
+              <li><a href="/contacts" class="hover:text-orange-400 transition">Contacts</a></li>
+              <li><a href="#" class="hover:text-orange-400 transition">Delivery &amp; payment</a></li>
+              <li><a href="#" class="hover:text-orange-400 transition">Warranty &amp; returns</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold uppercase tracking-wider text-sm mb-5">Write to us</h4>
+            <form class="space-y-3">
+              <input type="text" placeholder="Your name" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-orange-500 transition" />
+              <input type="email" placeholder="Email" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-orange-500 transition" />
+              <textarea rows="3" placeholder="Your message" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-orange-500 transition resize-none"></textarea>
+              <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2.5 rounded-lg transition text-sm">Send message</button>
+            </form>
+          </div>
+          <div>
+            <h4 class="text-white font-semibold uppercase tracking-wider text-sm mb-5">Find us</h4>
+            <div class="rounded-xl overflow-hidden mb-4" style="height:180px;">
+              <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=28.82,47.00,28.86,47.02&layer=mapnik&marker=47.01,28.84" width="100%" height="100%" style="border:0;" loading="lazy" title="Store location"></iframe>
+            </div>
+            <ul class="space-y-2 text-sm">
+              <li class="flex gap-2"><span class="text-orange-500">📍</span> 14 Stefan cel Mare Blvd, Chișinău</li>
+              <li class="flex gap-2"><span class="text-orange-500">📞</span> <a href="tel:+37322000000" class="hover:text-orange-400 transition">+373 22 000 000</a></li>
+              <li class="flex gap-2"><span class="text-orange-500">🕐</span> Mon–Sat: 9:00–20:00</li>
+            </ul>
+          </div>
         </div>
-        <!-- ещё 3 колонки -->
       </div>
-      <div class="text-center mt-10 text-sm opacity-70">© 2026 Brand. All rights reserved.</div>
+      <div class="container mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm opacity-60">
+        <span>© 2026 Brand. All rights reserved.</span>
+        <div class="flex gap-6">
+          <a href="#" class="hover:text-white transition">Privacy Policy</a>
+          <a href="#" class="hover:text-white transition">Terms of Use</a>
+        </div>
+      </div>
     </footer>
 
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script>
+      const cards = Array.from(document.querySelectorAll('.product-card'));
+      const grid = document.getElementById('product-grid');
+      const noResults = document.getElementById('no-results');
+      const countLabel = document.getElementById('count-label');
+      const priceRange = document.getElementById('price-range');
+      const priceLabel = document.getElementById('price-label');
+      const sortSelect = document.getElementById('sort-select');
+      const searchInput = document.getElementById('search-input');
+      const inStockCb = document.getElementById('in-stock');
+      const brandCbs = document.querySelectorAll('.brand-cb');
+      const catBtns = document.querySelectorAll('.cat-btn');
+      const gridBtn = document.getElementById('grid-btn');
+      const listBtn = document.getElementById('list-btn');
+
+      let activeCat = 'all';
+
+      function getCheckedBrands() {
+        return Array.from(brandCbs).filter(cb => cb.checked).map(cb => cb.value);
+      }
+
+      function applyFilters() {
+        const maxPrice = parseInt(priceRange.value);
+        const brands = getCheckedBrands();
+        const onlyStock = inStockCb.checked;
+        const query = searchInput.value.toLowerCase().trim();
+
+        let visible = cards.filter(card => {
+          const cat = card.dataset.cat;
+          const brand = card.dataset.brand;
+          const price = parseInt(card.dataset.price);
+          const stock = parseInt(card.dataset.stock);
+          const name = card.dataset.name.toLowerCase();
+
+          if (activeCat !== 'all' && cat !== activeCat) return false;
+          if (!brands.includes(brand)) return false;
+          if (price > maxPrice) return false;
+          if (onlyStock && stock === 0) return false;
+          if (query && !name.includes(query)) return false;
+          return true;
+        });
+
+        // Sort
+        const sort = sortSelect.value;
+        if (sort === 'price-asc')  visible.sort((a, b) => a.dataset.price - b.dataset.price);
+        if (sort === 'price-desc') visible.sort((a, b) => b.dataset.price - a.dataset.price);
+        if (sort === 'name-asc')   visible.sort((a, b) => a.dataset.name.localeCompare(b.dataset.name));
+        if (sort === 'rating')     visible.sort((a, b) => b.dataset.rating - a.dataset.rating);
+
+        const visibleSet = new Set(visible);
+        cards.forEach(card => {
+          card.style.display = visibleSet.has(card) ? '' : 'none';
+          // re-append in sorted order
+        });
+
+        // Re-order DOM
+        visible.forEach(card => grid.appendChild(card));
+
+        countLabel.textContent = visible.length;
+        noResults.classList.toggle('hidden', visible.length > 0);
+      }
+
+      // Category buttons
+      catBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeCat = btn.dataset.cat;
+          catBtns.forEach(b => {
+            b.classList.remove('bg-orange-50', 'text-orange-700', 'font-medium');
+          });
+          btn.classList.add('bg-orange-50', 'text-orange-700', 'font-medium');
+          applyFilters();
+        });
+      });
+
+      // Price range
+      priceRange.addEventListener('input', () => {
+        priceLabel.textContent = '$' + priceRange.value;
+        applyFilters();
+      });
+
+      // Brands, stock, sort, search
+      brandCbs.forEach(cb => cb.addEventListener('change', applyFilters));
+      inStockCb.addEventListener('change', applyFilters);
+      sortSelect.addEventListener('change', applyFilters);
+      searchInput.addEventListener('input', applyFilters);
+
+      // Reset
+      document.getElementById('reset-filters').addEventListener('click', () => {
+        activeCat = 'all';
+        catBtns.forEach(b => b.classList.remove('bg-orange-50', 'text-orange-700', 'font-medium'));
+        catBtns[0].classList.add('bg-orange-50', 'text-orange-700', 'font-medium');
+        brandCbs.forEach(cb => cb.checked = true);
+        priceRange.value = 2000;
+        priceLabel.textContent = '$2000';
+        inStockCb.checked = false;
+        searchInput.value = '';
+        sortSelect.value = 'default';
+        applyFilters();
+      });
+
+      // Grid / List toggle
+      gridBtn.addEventListener('click', () => {
+        grid.className = 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mb-12';
+        cards.forEach(c => {
+          c.classList.remove('list-card');
+          c.querySelector('div').style.height = '';
+        });
+        gridBtn.classList.add('bg-orange-600', 'text-white');
+        gridBtn.classList.remove('bg-white', 'border', 'border-gray-200', 'text-gray-500');
+        listBtn.classList.remove('bg-orange-600', 'text-white');
+        listBtn.classList.add('bg-white', 'border', 'border-gray-200', 'text-gray-500');
+      });
+
+      listBtn.addEventListener('click', () => {
+        grid.className = 'flex flex-col gap-4 mb-12';
+        cards.forEach(c => {
+          c.style.flexDirection = 'row';
+          const img = c.querySelector('div:first-child');
+          if (img) { img.style.width = '160px'; img.style.flexShrink = '0'; img.style.height = 'auto'; }
+        });
+        listBtn.classList.add('bg-orange-600', 'text-white');
+        listBtn.classList.remove('bg-white', 'border', 'border-gray-200', 'text-gray-500');
+        gridBtn.classList.remove('bg-orange-600', 'text-white');
+        gridBtn.classList.add('bg-white', 'border', 'border-gray-200', 'text-gray-500');
+      });
+
+      applyFilters();
+    </script>
   </body>
 </html>
