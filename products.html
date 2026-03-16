@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ru" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Магазин — Главная</title>
+    <title>Shop — Products</title>
     <link href="/dist/output.css" rel="stylesheet" />
     <!-- твой скомпилированный Tailwind -->
   </head>
@@ -14,10 +14,10 @@
         <a href="/" class="text-3xl font-bold text-orange-600">Brand</a>
 
         <nav class="hidden md:flex gap-8 font-medium">
-          <a href="/" class="hover:text-orange-600 transition">Главная</a>
-          <a href="/about" class="hover:text-orange-600 transition">О нас</a>
-          <a href="/products" class="hover:text-orange-600 transition">Товары</a>
-          <a href="/contacts" class="hover:text-orange-600 transition">Контакты</a>
+          <a href="/" class="hover:text-orange-600 transition">Home</a>
+          <a href="/about" class="hover:text-orange-600 transition">About</a>
+          <a href="/products" class="hover:text-orange-600 transition">Products</a>
+          <a href="/contacts" class="hover:text-orange-600 transition">Contacts</a>
         </nav>
 
         <div class="flex items-center gap-6">
@@ -28,34 +28,34 @@
     </header>
     <main class="pt-8 pb-20">
       <div class="container mx-auto px-4 lg:px-8">
-        <h1 class="text-4xl font-bold mb-10">Каталог товаров</h1>
+        <h1 class="text-4xl font-bold mb-10">Product Catalog</h1>
 
         <div class="flex flex-col lg:flex-row gap-10">
           <!-- Сайдбар -->
           <aside class="lg:w-64 flex-shrink-0">
             <div class="bg-white rounded-xl shadow p-6 sticky top-24">
-              <h3 class="text-xl font-bold mb-6">Категории</h3>
+              <h3 class="text-xl font-bold mb-6">Categories</h3>
               <ul class="space-y-3">
                 <li>
                   <a
                     href="#"
                     class="block py-2 px-4 bg-orange-50 text-orange-700 rounded-lg font-medium">
-                    Смартфоны
+                    Smartphones
                   </a>
                 </li>
                 <li>
                   <a href="#" class="block py-2 px-4 hover:bg-orange-50 rounded-lg transition">
-                    Ноутбуки
+                    Laptops
                   </a>
                 </li>
                 <li>
                   <a href="#" class="block py-2 px-4 hover:bg-orange-50 rounded-lg transition">
-                    Наушники
+                    Headphones
                   </a>
                 </li>
                 <li>
                   <a href="#" class="block py-2 px-4 hover:bg-orange-50 rounded-lg transition">
-                    Телевизоры
+                    TVs
                   </a>
                 </li>
                 <!-- ... -->
@@ -63,11 +63,11 @@
 
               <hr class="my-8" />
 
-              <h4 class="font-bold mb-4">Цена</h4>
+              <h4 class="font-bold mb-4">Price</h4>
               <div class="space-y-3">
                 <label class="flex items-center">
                   <input type="checkbox" />
-                  <span class="ml-3">До 10 000 ₽</span>
+                  <span class="ml-3">Up to $100</span>
                 </label>
                 <!-- ... -->
               </div>
@@ -104,11 +104,11 @@
       <div class="container mx-auto px-6 grid md:grid-cols-4 gap-10">
         <div>
           <h4 class="text-white text-xl font-bold mb-4">Brand</h4>
-          <p>Интернет-магазин электроники</p>
+          <p>Online electronics store</p>
         </div>
         <!-- ещё 3 колонки -->
       </div>
-      <div class="text-center mt-10 text-sm opacity-70">© 2026 Brand. Все права защищены.</div>
+      <div class="text-center mt-10 text-sm opacity-70">© 2026 Brand. All rights reserved.</div>
     </footer>
 
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
